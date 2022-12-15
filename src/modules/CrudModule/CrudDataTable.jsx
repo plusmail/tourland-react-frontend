@@ -24,11 +24,30 @@ function AddNewItem({ config }) {
     </Button>
   );
 }
+
+function ModalAddNewItem({ config }) {
+  const { crudContextAction } = useCrudContext();
+  const { collapsedBox, panelmodal, panel } = crudContextAction;
+  const { MODAL_ADD_NEW_ENTITY } = config;
+  const handelClick = () => {
+    panelmodal.open();
+    collapsedBox.close();
+
+  };
+
+  return (
+      <Button onClick={handelClick} type="primary">
+        {MODAL_ADD_NEW_ENTITY}
+      </Button>
+  );
+}
+
 function DropDownRowMenu({ row }) {
+  console.log("8888888888->",row);
   const dispatch = useDispatch();
   const { crudContextAction } = useCrudContext();
   const { panel, collapsedBox, modal, readBox, editBox } = crudContextAction;
-  const item = useSelector(selectItemById(row._id));
+  const item = useSelector(selectItemById(row.id));
   const Show = () => {
     dispatch(crud.currentItem({ data: item }));
     panel.open();
@@ -62,5 +81,5 @@ function DropDownRowMenu({ row }) {
 }
 
 export default function CrudDataTable({ config }) {
-  return <DataTable config={config} DropDownRowMenu={DropDownRowMenu} AddNewItem={AddNewItem} />;
+  return <DataTable config={config} DropDownRowMenu={DropDownRowMenu} ModalAddNewItem={ModalAddNewItem} AddNewItem={AddNewItem} />;
 }

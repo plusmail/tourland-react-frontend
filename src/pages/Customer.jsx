@@ -8,12 +8,16 @@ function Customer() {
   const searchConfig = {
     displayLabels: ['company'],
     searchFields: 'username,usertel,useraddr',
-    outputValue: '_id',
+    outputValue: 'id',
   };
 
   const entityDisplayLabels = ['company'];
 
   const readColumns = [
+    {
+      title: '번호',
+      dataIndex: 'id',
+    },
     {
       title: '주소',
       dataIndex: 'useraddr',
@@ -29,10 +33,6 @@ function Customer() {
     {
       title: '고객명',
       dataIndex: 'username',
-    },
-    {
-      title: '번호',
-      dataIndex: 'userno',
     },
     {
       title: '비번',
@@ -57,8 +57,8 @@ function Customer() {
   ];
   const dataTableColumns = [
     {
-      title: '고객번호',
-      dataIndex: 'userno',
+      title: '번호',
+      dataIndex: 'id',
     },
     {
       title: '고객명',
@@ -83,6 +83,7 @@ function Customer() {
 
   ];
 
+  const MODAL_ADD_NEW_ENTITY = '신규고객등록(Modal)';
   const ADD_NEW_ENTITY = '신규고객등록';
   const DATATABLE_TITLE = '고객목록';
   const ENTITY_NAME = '고객';
@@ -95,6 +96,7 @@ function Customer() {
     PANEL_TITLE,
     ENTITY_NAME,
     CREATE_ENTITY,
+    MODAL_ADD_NEW_ENTITY,
     ADD_NEW_ENTITY,
     UPDATE_ENTITY,
     DATATABLE_TITLE,

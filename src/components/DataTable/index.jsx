@@ -8,7 +8,7 @@ import { selectListItems } from '@/redux/crud/selectors';
 
 import uniqueId from '@/utils/uinqueId';
 
-export default function DataTable({ config, DropDownRowMenu, AddNewItem }) {
+export default function DataTable({ config, DropDownRowMenu, ModalAddNewItem, AddNewItem }) {
   let { entity, dataTableColumns, dataTableTitle } = config;
 
   dataTableColumns = [
@@ -40,7 +40,7 @@ export default function DataTable({ config, DropDownRowMenu, AddNewItem }) {
     dispatch(crud.list({ entity }));
   }, []);
 
-  console.log("444444444->",dataTableColumns);
+  console.log("444444444->",config);
 
   return (
     <>
@@ -52,6 +52,7 @@ export default function DataTable({ config, DropDownRowMenu, AddNewItem }) {
           <Button onClick={handelDataTableLoad} key={`${uniqueId()}`}>
             Refresh
           </Button>,
+          <ModalAddNewItem config={config} />,
           <AddNewItem key={`${uniqueId()}`} config={config} />,
         ]}
         style={{
@@ -60,7 +61,7 @@ export default function DataTable({ config, DropDownRowMenu, AddNewItem }) {
       ></PageHeader>
       <Table
         columns={dataTableColumns}
-        rowKey={(item) => item._id}
+        rowKey={(item) => item.id}
         dataSource={items}
         pagination={pagination}
         loading={listIsLoading}

@@ -5,6 +5,7 @@ import errorHandler from '@/request/errorHandler';
 import successHandler from '@/request/successHandler';
 
 export const login = async ({ loginData }) => {
+  console.log("client logindata->>>>>>", loginData);
   try {
     const response = await fetch(API_BASE_URL + `login?timestamp=${new Date().getTime()}`, {
       method: 'POST', // *GET, POST, PUT, DELETE, etc.
@@ -20,10 +21,11 @@ export const login = async ({ loginData }) => {
       body: JSON.stringify(loginData), // body data type must match "Content-Type" header
     });
 
-    console.log("client->>>>>>", response);
 
     const { status } = response;
     const data = await response.json();
+
+    console.log("client->>>>>>",status, data);
 
     successHandler(
       { data, status },

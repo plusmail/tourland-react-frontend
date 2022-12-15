@@ -5,6 +5,7 @@ import { PlusOutlined, EditOutlined, DeleteOutlined } from '@ant-design/icons';
 import CreateForm from '@/components/CreateForm';
 import UpdateForm from '@/components/UpdateForm';
 import DeleteModal from '@/components/DeleteModal';
+import CrudModal from '@/components/CrudModal';
 import ReadItem from '@/components/ReadItem';
 import SearchItem from '@/components/SearchItem';
 
@@ -21,7 +22,7 @@ import CrudDataTable from './CrudDataTable';
 function SidePanelTopContent({ config, formElements }) {
   const { crudContextAction, state } = useCrudContext();
   const { entityDisplayLabels } = config;
-  const { panel, collapsedBox, modal, readBox, editBox } = crudContextAction;
+  const { panel, collapsedBox, panelmodal, readBox, editBox } = crudContextAction;
 
   const { isReadBoxOpen, isEditBoxOpen } = state;
   const { result: currentItem } = useSelector(selectCurrentItem);
@@ -38,7 +39,7 @@ function SidePanelTopContent({ config, formElements }) {
 
   const removeItem = () => {
     dispatch(crud.currentAction({ actionType: 'delete', data: currentItem }));
-    modal.open();
+    panelmodal.open();
   };
   const editItem = () => {
     dispatch(crud.currentAction({ actionType: 'update', data: currentItem }));
@@ -126,6 +127,13 @@ function CrudModule({ config, createForm, updateForm }) {
       sidePanelBottomContent={<CreateForm config={config} formElements={createForm} />}
       sidePanelTopContent={<SidePanelTopContent config={config} formElements={updateForm} />}
     >
+      <CrudModal
+          config={config}
+          fixHeaderPanel={<FixHeaderPanel config={config} />}
+          sidePanelTopContent={<SidePanelTopContent config={config} formElements={updateForm} />}
+          sidePanelBottomContent={<CreateForm config={config} formElements={createForm} />}
+      />
+      <FixHeaderPanel config={config} />
       <CrudDataTable config={config} />
       <DeleteModal config={config} />
     </CrudLayout>

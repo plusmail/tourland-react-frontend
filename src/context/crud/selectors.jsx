@@ -1,5 +1,8 @@
 const contextSelectors = (state) => {
   return {
+    isPanelModalOpen: () => {
+      return state.isPanelModalOpen;
+    },
     isModalOpen: () => {
       return state.isModalOpen;
     },

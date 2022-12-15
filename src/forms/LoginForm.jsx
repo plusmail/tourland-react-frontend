@@ -6,18 +6,17 @@ export default function LoginForm() {
   return (
     <>
       <Form.Item
-        name="email"
+        name="userid"
         rules={[
           {
             required: true,
-            message: 'Please input your Email!',
+            message: 'Please input your ID!',
           },
         ]}
       >
         <Input
           prefix={<UserOutlined className="site-form-item-icon" />}
-          placeholder="admin@demo.com"
-          autoComplete="email"
+          placeholder="manager"
           size="large"
         />
       </Form.Item>

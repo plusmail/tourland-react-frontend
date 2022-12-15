@@ -1,3 +1,6 @@
+export const PANEL_OPEN_MODAL = 'PANEL_OPEN_MODAL';
+export const PANEL_CLOSE_MODAL = 'PANEL_CLOSE_MODAL';
+
 export const OPEN_MODAL = 'OPEN_MODAL';
 export const CLOSE_MODAL = 'CLOSE_MODAL';
 

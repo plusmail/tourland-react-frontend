@@ -2,6 +2,14 @@ import * as actionTypes from './types';
 
 const contextActions = (dispatch) => {
   return {
+    panelmodal: {
+      open: () => {
+        dispatch({ type: actionTypes.PANEL_OPEN_MODAL });
+      },
+      close: () => {
+        dispatch({ type: actionTypes.PANEL_CLOSE_MODAL });
+      },
+    },
     modal: {
       open: () => {
         dispatch({ type: actionTypes.OPEN_MODAL });
