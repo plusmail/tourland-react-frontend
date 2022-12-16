@@ -54,7 +54,7 @@ export default function CrudModal({
             onCancel={handleCancel}
             confirmLoading={isLoading}
         >
-            {fixHeaderPanel}
+            {/*{fixHeaderPanel}*/}
             {sidePanelTopContent}
             {sidePanelBottomContent}
         </Modal>
