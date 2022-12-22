@@ -8,6 +8,8 @@ import { v4 as uuid } from "uuid";
 import * as events from "events";
 import {formatDate} from "@/utils/helpers";
 import axios from "axios";
+import successHandler from "@/request/successHandler";
+import errorHandler from "@/request/errorHandler";
 // import { INITIAL_EVENTS, createEventId } from './event-utils'
 
 let eventGuid = 0
@@ -51,11 +53,46 @@ function renderSidebarEvent(event) {
 class Index extends Component {
     state = {
         weekendsVisible: true,
-        currentEvents: []
+        currentEvents: [],
+        ItemList:[]
     }
 
+    loadItem = async () => {
+        axios
+            .get("https://localhost:8888/api/calendar/list")
+            .then(({ data }) => {
+                console.log("dddddd->", data.Item);
+                this.setState({
+                    loading: true,
+                    ItemList: data.Item
+                });
+            })
+            .catch(e => {  // API 호출이 실패한 경우
+                console.error(e);  // 에러표시
+                this.setState({
+                    loading: false
+                });
+            });
+    };
+
+    createItem = async (jsonData) => {
+        try {
+            const response = await axios.post("https://localhost:8888/api/calendar/create", jsonData);
+
+            successHandler(response, {
+                notifyOnSuccess: true,
+                notifyOnFailed: true,
+            });
+            return response.data;
+        } catch (error) {
+            return errorHandler(error);
+        }
+    };
 
 
+    componentDidMount() {
+        this.loadItem();  // loadItem 호출
+    }
     renderSidebar() {
         return (
             <div className='demo-app-sidebar'>
@@ -98,6 +135,16 @@ class Index extends Component {
         let calendarApi = selectInfo.view.calendar
 
         calendarApi.unselect() // clear date selection
+        let jsonData= {
+            "id":createEventId(),
+            "title": title,
+            "start":selectInfo.startStr,
+            "end":selectInfo.endStr,
+            "allDay":selectInfo.allDay,
+        }
+        this.createItem(jsonData).then(r => {
+            console.log(r);
+        });
 
         if (title) {
             calendarApi.addEvent({
@@ -124,6 +171,8 @@ class Index extends Component {
     }
 
     render() {
+        const { ItemList } = this.state;
+        console.log("000000->",ItemList);
         return (
             <div className='demo-app'>
                 {this.renderSidebar()}
@@ -140,8 +189,9 @@ class Index extends Component {
                         selectable={true}
                         selectMirror={true}
                         dayMaxEvents={true}
+                        events={ this.state.ItemList}
                         weekends={this.state.weekendsVisible}
-                        initialEvents={INITIAL_EVENTS} // alternatively, use the `events` setting to fetch from a feed
+                        initialEvents={this.ItemList} // alternatively, use the `events` setting to fetch from a feed
                         select={this.handleDateSelect}
                         eventContent={renderEventContent} // custom render function
                         eventClick={this.handleEventClick}
