@@ -10,11 +10,13 @@ import uniqueId from '@/utils/uinqueId';
 import DataTable from '@/components/DataTable';
 
 function AddNewItem({ config }) {
+  const dispatch = useDispatch();
   const { crudContextAction } = useCrudContext();
-  const { collapsedBox, panel } = crudContextAction;
+  const { collapsedBox, panel, modal } = crudContextAction;
   const { ADD_NEW_ENTITY } = config;
   const handelClick = () => {
-    panel.open();
+    dispatch(crud.currentAction({ actionType: 'create', data: {} }));
+    modal.open();
     collapsedBox.close();
   };
 
