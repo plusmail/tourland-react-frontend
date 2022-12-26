@@ -73,6 +73,10 @@ export default function Navigation() {
             <Link to={'/department'} />
             부서관리
           </Menu.Item>
+          <Menu.Item key={'Categories'} icon={<TeamOutlined />}>
+            <Link to={'/categories'} />
+            부서관리(M)
+          </Menu.Item>
           <Menu.Item key={'Material-ui'} icon={<TeamOutlined />}>
             <Link to={'/material-ui'} />
             부서관리(M)

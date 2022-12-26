@@ -49,7 +49,7 @@ const useStyles = makeStyles({
     }
 });
 
-const DepartmentTree = () => {
+const Index = () => {
     const classes = useStyles();
     const [state, setState] = useState({
         alignRight: false,
@@ -101,7 +101,7 @@ const DepartmentTree = () => {
                 }
                 return {
                     icon: <AddIcon className={classes.icon} />,
-                    label: "new",
+                    label: "new11",
                     hint: "Insert file",
                     onClick: () => {
                         const treeData = Object.assign({}, state.data);
@@ -199,5 +199,5 @@ const DepartmentTree = () => {
     );
 };
 
-export default DepartmentTree;
+export default Index;
 // ReactDOM.render(<App />, document.querySelector("#root"));

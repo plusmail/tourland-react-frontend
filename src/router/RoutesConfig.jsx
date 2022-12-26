@@ -76,4 +76,12 @@ export const routesConfig = [
     path: '/department',
     component: 'Department',
   },
+  {
+    path: '/material-ui',
+    component: 'Material-ui',
+  },
+  {
+    path: '/categories',
+    component: 'Categories',
+  },
 ];
